@@ -1,10 +1,14 @@
 /** @format */
 
 export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
   try {
     const response = await fetch(process.env.GAS_URL, {
       method: "POST",
-      redirect: "follow", // IMPORTANT
+      redirect: "follow",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
