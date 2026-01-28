@@ -3,7 +3,7 @@
 const API = "/api/register";
 const SECRET = import.meta.env.VITE_SECRET;
 
-// 🔹 Validate code
+// validate code
 export async function validateCode(code) {
   const res = await fetch(API, {
     method: "POST",
@@ -15,16 +15,15 @@ export async function validateCode(code) {
       code,
     }),
   });
-
   return res.json();
 }
 
-// 🔹 Create token (must match Apps Script)
+// generate token for frontend
 export function createToken(code) {
-  return btoa(code + SECRET);
+  return btoa(code + SECRET); // must match Apps Script token logic
 }
 
-// 🔹 Register user
+// register user
 export async function registerUser(data) {
   const res = await fetch(API, {
     method: "POST",
@@ -33,6 +32,5 @@ export async function registerUser(data) {
     },
     body: new URLSearchParams(data),
   });
-
   return res.json();
 }
